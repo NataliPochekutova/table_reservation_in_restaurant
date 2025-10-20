@@ -5,7 +5,7 @@ from users.forms import StyleFormMixin
 
 
 class TableForm(StyleFormMixin, forms.ModelForm):
-    """Форма для создания и редактирования столиков"""
+    """Форма для создания и редактирования данных о столиках"""
 
     class Meta:
         model = Table
@@ -13,7 +13,7 @@ class TableForm(StyleFormMixin, forms.ModelForm):
 
 
 class EmployeeForm(StyleFormMixin, forms.ModelForm):
-    """Форма для создания и редактирования сотрудников"""
+    """Форма для создания и редактирования данных о сотрудниках"""
 
     class Meta:
         model = Employee
@@ -21,7 +21,7 @@ class EmployeeForm(StyleFormMixin, forms.ModelForm):
 
 
 class RestaurantForm(StyleFormMixin, forms.ModelForm):
-    """Форма для создания и редактирования ресторана"""
+    """Форма для создания и редактирования данных об ресторане"""
 
     class Meta:
         model = Restaurant

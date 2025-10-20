@@ -34,8 +34,8 @@ class StyleFormMixin:
                         "type": "time",
                         "class": "form-control timepicker",
                         "step": "300",
-                        "min": "10:00",  # Минимальное время
-                        "max": "23:00",  # Максимальное время
+                        "min": "09:00",
+                        "max": "23:00",
                     }
                 )
 

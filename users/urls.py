@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordResetCompleteView,
                                        PasswordResetConfirmView,
@@ -6,8 +8,8 @@ from django.contrib.auth.views import (LoginView, LogoutView,
 from django.urls import path, reverse_lazy
 
 from users.apps import UsersConfig
-from users.views import (UserCreateViews, UserDetailView, UserListView,
-                         UserUpdateView, email_verification)
+from users.views import (UserCreateViews, UserDelete, UserDetailView,
+                         UserListView, UserUpdateView, email_verification)
 
 app_name = UsersConfig.name
 
@@ -18,6 +20,7 @@ urlpatterns = [
     path("users_list/", UserListView.as_view(), name="users_list"),
     path("user_detail/<int:pk>/", UserDetailView.as_view(), name="user_detail"),
     path("users_update/<int:pk>/", UserUpdateView.as_view(), name="users_update"),
+    path("users_delete/<int:pk>/", UserDelete.as_view(), name="user_delete"),
     path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
     path(
         "password-reset/",
@@ -49,3 +52,6 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

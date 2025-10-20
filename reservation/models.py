@@ -1,4 +1,4 @@
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from restaurant.models import Table
@@ -41,6 +41,12 @@ class Reservation(models.Model):
         blank=True,
         null=True,
         help_text="Напишите Ваши пожелания",
+    )
+    long_reservation = models.PositiveIntegerField(
+        default=2,
+        verbose_name="Количество часов брони",
+        help_text="Введите количество часов, на сколько хотите забронировать столик, но не меньше 2x",
+        validators=[MinValueValidator(2)],
     )
 
     def __str__(self):

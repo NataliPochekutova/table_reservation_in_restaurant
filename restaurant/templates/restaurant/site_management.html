@@ -1,0 +1,11 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<main class="container my-5">
+    <h2 class="text-center mb-4 fw-semibold text-dark">Редактирование данных ресторана</h2>
+    <div class="d-flex flex-column align-items-center gap-3">
+        <a href="{% url 'restaurant:restaurant_update' restaurant.pk %}" class="btn btn-outline-secondary btn-lg" style="color: #343a40; border-color: #343a40;">Редактировать данные о ресторане</a>
+        <a href="{% url 'restaurant:employee_list' %}" class="btn btn-outline-secondary btn-lg" style="color: #343a40; border-color: #343a40;">Редактировать данные о сотрудниках</a>
+        <a href="{% url 'restaurant:table_list' %}" class="btn btn-outline-secondary btn-lg" style="color: #343a40; border-color: #343a40;">Редактировать данные о столах</a>
+    </div>
+</main>
+{% endblock %}

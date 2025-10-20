@@ -1,0 +1,78 @@
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+<div class="container my-4">
+
+<h1 class="mb-4">Профиль пользователя</h1>
+
+<!-- Информация о пользователе -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-body d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title mb-0">Информация о профиле</h4>
+        <div class="btn-group" role="group" aria-label="Действия профиля">
+            <a href="{% url 'users:users_update' user.pk %}" class="btn btn-outline-primary btn-sm">Редактировать профиль</a>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+        <li class="list-group-item"><strong>Телефон:</strong> {{ user.phone|default:"Нет данных" }}</li>
+        <li class="list-group-item"><strong>Telegram chat_id:</strong> {{ user.tg_chat_id|default:"Нет данных" }}</li>
+        <li class="list-group-item"><strong>Token:</strong> {{ user.token|default:"Нет данных" }}</li>
+    </ul>
+</div>
+
+<!-- Активные бронирования -->
+<section class="all-bookings mb-5">
+    <h2 class="mb-3">Активные бронирования</h2>
+    {% if current_bookings %}
+        {% for reservation in current_bookings %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Бронирование от {{ reservation.date_reservation|date:"d.m.Y" }}</h5>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Время:</strong> {{ reservation.time_reservation|time:"H:i" }}</li>
+                    <li class="list-group-item"><strong>Количество человек:</strong> {{ reservation.count_people }}</li>
+                    <li class="list-group-item"><strong>Столик:</strong> {{ reservation.table }}</li>
+                    <li class="list-group-item"><strong>Особые пожелания:</strong> {{ reservation.wishes }}</li>
+                    <li class="list-group-item"><strong>Длительность бронирования (часов):</strong> {{ reservation.long_reservation }}</li>
+                </ul>
+                <div class="d-flex gap-2 mt-3">
+                    <a href="{% url 'reservation:reservation_update' reservation.id %}" class="btn btn-primary btn-sm">Редактировать</a>
+                    <form action="{% url 'reservation:reservation_delete' reservation.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите отменить бронирование?');">Отменить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Нет активных бронирований.</p>
+    {% endif %}
+</section>
+
+<!-- История бронирований -->
+<section class="past-bookings">
+    <h2 class="mb-3">История бронирований</h2>
+    {% if bookings_history %}
+        {% for reservation in bookings_history %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Бронирование от {{ reservation.date_reservation|date:"d.m.Y" }}</h5>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Время:</strong> {{ reservation.time_reservation|time:"H:i" }}</li>
+                    <li class="list-group-item"><strong>Количество человек:</strong> {{ reservation.count_people }}</li>
+                    <li class="list-group-item"><strong>Столик:</strong> {{ reservation.table }}</li>
+                    <li class="list-group-item"><strong>Особые пожелания:</strong> {{ reservation.wishes }}</li>
+                    <li class="list-group-item"><strong>Длительность бронирования (часов):</strong> {{ reservation.long_reservation }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>История ваших бронирований пуста.</p>
+    {% endif %}
+</section>
+
+</div>
+{% endblock %}
