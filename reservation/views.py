@@ -98,7 +98,6 @@ class ReservationUpdate(LoginRequiredMixin, UpdateView):
     form_class = ReservationForm
     template_name = "reservation/reservation_form.html"
 
-
     def get_success_url(self):
         return reverse("reservation:reservation_detail", args=[self.object.pk])
 
