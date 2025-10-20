@@ -1,0 +1,20 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+
+<section class="bg-light p-5 rounded mb-5">
+     <div class="text-center">
+        <h2>Стол № {{ table.table_number }} </h2>
+    </div>
+     <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <p>Вместительность {{ table.table_capacity }} человек</p>
+                <p>Расположение: {{ table.location }} </p>
+
+                <a href="{% url 'restaurant:table_list' %}" class="btn btn-primary">Вернуться к списку столов</a>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

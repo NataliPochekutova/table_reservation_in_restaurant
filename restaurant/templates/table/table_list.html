@@ -1,0 +1,33 @@
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+<div class="text-center">
+<h2>Список столов в рестораны </h2>
+    </div>
+<div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for table in tables %}
+            <div class="col-3">
+
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header">
+                   <h3 class="card-title pricing-card-title">Столик № {{ table.table_number }}</h3>
+                </div>
+                <div class="card-body">
+                    <p>Вместительность {{ table.table_capacity }} человек </p>
+                    <a class="btn btn-primary" href="{% url 'restaurant:table_detail' table.pk %}" role="button">Подробнее</a>
+                    <a class="btn btn-secondary" href="{% url 'restaurant:table_update' table.pk %}" role="button">Редактировать</a>
+                    <a href="{% url 'restaurant:table_delete' table.pk %}" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+
+            </div>
+            {% endfor %}
+    </div>
+
+<a class="btn btn-primary" href="{% url 'restaurant:table_create' %}" role="button">Добавить столик</a>
+<a href="{% url 'restaurant:home' %}" class="btn btn-secondary">Назад</a>
+</div>
+
+{% endblock %}
